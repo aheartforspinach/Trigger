@@ -10,6 +10,7 @@ __allgemeine Funktionen__
 * Darstellung der Trigger in der Themenübersicht
 * Warnung, wenn Thema einen Trigger hat, welchen man selber auch angegeben hat
 * Ausgabe im Profil eines Profilfeldes
+* Übersichtsseite ist aufrufbar über `misc.php?action=trigger`, ich habe eine Verlinkung im UserCP hinzugefügt
 
 __Funktionen für Admins__
 * Festlegung für Bereiche in welchen Trigger angegeben werden
@@ -44,7 +45,7 @@ __Ansicht in der Übersichtsseite, Trigger bearbeiten__
 ![managetrigger](https://aheartforspinach.de/upload/plugins/trigger_misc_manage.png)
 
 __Ansicht in der Threadübersicht__
-![threadoverview](https://aheartforspinach.de/upload/plugins/trigger_forumdisplay.png)
+![threadoverview](https://aheartforspinach.de/upload/plugins/trigger_Forumdisplay.png)
 
 __Ansicht in Threadansicht__
 ![showthread](https://aheartforspinach.de/upload/plugins/trigger_showthread.png)
