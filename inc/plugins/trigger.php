@@ -163,7 +163,7 @@ function trigger_install()
     $db->insert_query("templategroups", $templategroup);
 
     $insert_array = array(
-        'title'        => 'trigger',
+        'title'        => 'trigger_misc',
         'template'    => $db->escape_string('<html xml:lang="de" lang="de" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Trigger</title>
@@ -243,7 +243,7 @@ function openTab(evt, tabname) {
     $db->insert_query("templates", $insert_array);
 
     $insert_array = array(
-        'title'        => 'trigger_row',
+        'title'        => 'trigger_misc_row',
         'template'    => $db->escape_string('<tr><td><b><center>{$name}</center></b></td><td>{$triggerFromUser}</td></tr>'),
         'sid'        => '-2',
         'version'    => '',
@@ -355,7 +355,8 @@ function trigger_activate()
     global $db, $cache;
     include MYBB_ROOT . "/inc/adminfunctions_templates.php";
     find_replace_templatesets("showthread", "#" . preg_quote('{$header}') . "#i", '{$trigger_box_warning} {$header}');
-    find_replace_templatesets("showthread", "#" . preg_quote('{$thread[\'displayprefix\']}') . "#i", '{$trigger}<br>{$thread[\'displayprefix\']}');
+    find_replace_templatesets("showthread", "#" . preg_quote('{$ratethread}') . "#i", '{$ratethread}
+    {$trigger}');
     find_replace_templatesets("member_profile", "#" . preg_quote('{$header}') . "#i", '{$header} {$trigger}');
     find_replace_templatesets("newthread", "#" . preg_quote('{$posticons}') . "#i", '{$posticons} {$trigger}');
     find_replace_templatesets("editpost", "#" . preg_quote('{$posticons}') . "#i", '{$posticons} {$trigger}');
@@ -402,7 +403,7 @@ function trigger_misc_start()
             $ownUids = $uids;
         }
         $triggerFromUser = $row['trigger'] == null ? '-' : $row['trigger'];
-        eval("\$entries .= \"" . $templates->get('trigger_row') . "\";");
+        eval("\$entries .= \"" . $templates->get('trigger_misc_row') . "\";");
     }
 
     // 
@@ -421,7 +422,7 @@ function trigger_misc_start()
         redirect('misc.php?action=trigger', $lang->trigger_redirect);
     }
 
-    eval("\$page = \"" . $templates->get('trigger') . "\";");
+    eval("\$page = \"" . $templates->get('trigger_misc') . "\";");
     output_page($page);
 }
 
@@ -519,7 +520,7 @@ function trigger_showthread_forumdisplay(&$thread)
     global $db, $trigger, $tid, $fid, $templates, $mybb, $trigger_box_warning, $lang;
 
     $lang->load('trigger');
-    trigger_showTextWarning($thread);
+    trigger_getTextWarning($thread, 'trigger_showthread');
 
     // 
     // trigger warning window
@@ -541,12 +542,17 @@ function trigger_showthread_forumdisplay(&$thread)
     eval("\$trigger_box_warning = \"" . $templates->get('trigger_show_box_warning') . "\";");
 }
 
-$plugins->add_hook('forumdisplay_thread_end', 'trigger_showTextWarning');
-function trigger_showTextWarning(&$thread)
+$plugins->add_hook('forumdisplay_thread_end', 'trigger_forumdisplay_thread_end');
+function trigger_forumdisplay_thread_end(&$thread)
 {
-    global $db, $trigger, $thread, $tid, $templates, $mybb, $fid, $lang;
+    trigger_getTextWarning($thread, 'trigger_forumdisplay');
+}
+
+function trigger_getTextWarning(&$thread, $template) {
+    global $db, $trigger, $thread, $tid, $templates, $fid, $lang;
     $lang->load('trigger');
 
+    $templateName = $template == null ? 'trigger_forumdisplay' : $template;
     $tid = $thread == null ? $tid : $thread['tid'];
     $fid = $thread == null ? $fid : $thread['fid'];
 
@@ -554,7 +560,7 @@ function trigger_showTextWarning(&$thread)
     $triggerScene = $db->fetch_array($db->simple_select('threads', 'threadTrigger', 'tid = ' . $tid))['threadTrigger'];
 
     if ($triggerScene == null) return;
-    eval("\$trigger = \"" . $templates->get('trigger_showthread') . "\";");
+    eval("\$trigger = \"" . $templates->get($templateName) . "\";");
 }
 
 // return an array with name => uids
