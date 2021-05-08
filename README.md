@@ -44,7 +44,7 @@ __Ansicht in der Übersichtsseite, Trigger bearbeiten__
 ![managetrigger](https://aheartforspinach.de/upload/plugins/trigger_misc_manage.png)
 
 __Ansicht in der Threadübersicht__
-![threadoverview](https://aheartforspinach.de/upload/plugins/trigger_forumdisplay.png)
+
 
 __Ansicht in Threadansicht__
 ![showthread](https://aheartforspinach.de/upload/plugins/trigger_showthread.png)
