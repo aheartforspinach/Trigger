@@ -87,7 +87,7 @@ function trigger_install()
     $css = array(
         'name' => 'trigger.css',
         'tid' => 1,
-        'attachedto' => '',
+        'attachedto' => 'misc.php?trigger|showthread.php|forumdisplay.php',
         "stylesheet" =>    '/* The Overlay (background) */
 .overlay {
     height: 100%;
